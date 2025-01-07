@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import '../../../data/repositories/theme_repository.dart';
-import '../../../utils/commad.dart';
+import '../../../utils/command.dart';
 import '../../../utils/result.dart';
 
 class ThemeSwitchViewModel extends ChangeNotifier {

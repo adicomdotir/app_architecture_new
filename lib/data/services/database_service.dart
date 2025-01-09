@@ -77,6 +77,26 @@ class DatabaseService {
     }
   }
 
+  Future<Result<Todo>> edit(Todo todo) async {
+    final updatedTodo = todo.copyWith(task: todo.task);
+    try {
+      final rowsEdited = await _database!.update(
+        _kTableTodo,
+        {
+          'task': updatedTodo.task,
+        },
+        where: '$_kColumnId = ?',
+        whereArgs: [todo.id],
+      );
+      if (rowsEdited == 0) {
+        return Result.error(Exception('No todo found with id ${todo.id}'));
+      }
+      return Result.ok(updatedTodo);
+    } on Exception catch (e) {
+      return Result.error(e);
+    }
+  }
+
   Future close() async {
     await _database?.close();
     _database = null;

@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+Todo _$TodoFromJson(Map<String, dynamic> json) {
+  return _Todo.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Todo {
   /// The unique identifier of the Todo item.
@@ -21,6 +25,9 @@ mixin _$Todo {
 
   /// The task description of the Todo item.
   String get task => throw _privateConstructorUsedError;
+
+  /// Serializes this Todo to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of Todo
   /// with the given fields replaced by the non-null parameter values.
@@ -106,9 +113,12 @@ class __$$TodoImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$TodoImpl implements _Todo {
   const _$TodoImpl({required this.id, required this.task});
+
+  factory _$TodoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TodoImplFromJson(json);
 
   /// The unique identifier of the Todo item.
   @override
@@ -132,6 +142,7 @@ class _$TodoImpl implements _Todo {
             (identical(other.task, task) || other.task == task));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, task);
 
@@ -142,11 +153,20 @@ class _$TodoImpl implements _Todo {
   @pragma('vm:prefer-inline')
   _$$TodoImplCopyWith<_$TodoImpl> get copyWith =>
       __$$TodoImplCopyWithImpl<_$TodoImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TodoImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Todo implements Todo {
   const factory _Todo({required final int id, required final String task}) =
       _$TodoImpl;
+
+  factory _Todo.fromJson(Map<String, dynamic> json) = _$TodoImpl.fromJson;
 
   /// The unique identifier of the Todo item.
   @override

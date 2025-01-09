@@ -29,4 +29,11 @@ class TodoRepository {
     }
     return _database.delete(id);
   }
+
+  Future<Result<Todo>> editTodo(Todo todo) async {
+    if (!_database.isOpen()) {
+      await _database.open();
+    }
+    return _database.edit(todo);
+  }
 }

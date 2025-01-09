@@ -22,12 +22,14 @@ class _TodoListScreenState extends State<TodoListScreen> {
     super.initState();
     _controller = TextEditingController();
     widget.viewModel.add.addListener(_onAdd);
+    widget.viewModel.edit.addListener(_onEdit);
   }
 
   @override
   void dispose() {
     _controller.dispose();
     widget.viewModel.add.removeListener(_onAdd);
+    widget.viewModel.edit.removeListener(_onEdit);
     super.dispose();
   }
 
@@ -46,12 +48,19 @@ class _TodoListScreenState extends State<TodoListScreen> {
                   final todo = widget.viewModel.todos[index];
                   return ListTile(
                     title: Text(todo.task),
-                    // #docregion Delete
+                    leading: IconButton(
+                      icon: const Icon(Icons.edit_note),
+                      onPressed: () {
+                        widget.viewModel.toggleIsEdit(todo);
+                        _controller.text = todo.task;
+                      },
+                    ),
+                    //#region Delete
                     trailing: IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () => widget.viewModel.delete.execute(todo.id),
                     ),
-                    // #enddocregion Delete
+                    //#endregion Delete
                   );
                 },
               );
@@ -75,9 +84,26 @@ class _TodoListScreenState extends State<TodoListScreen> {
                 ),
                 // #docregion FilledButton
                 FilledButton.icon(
-                  onPressed: () =>
-                      widget.viewModel.add.execute(_controller.text),
-                  label: const Text('Add'),
+                  onPressed: () {
+                    if (widget.viewModel.editableTodo != null) {
+                      widget.viewModel.toggleIsEdit(
+                        widget.viewModel.editableTodo!
+                            .copyWith(task: _controller.text),
+                      );
+                      widget.viewModel.edit
+                          .execute(widget.viewModel.editableTodo!);
+                    } else {
+                      widget.viewModel.add.execute(_controller.text);
+                    }
+                  },
+                  label: ListenableBuilder(
+                    listenable: widget.viewModel,
+                    builder: (context, child) {
+                      return Text(
+                        widget.viewModel.editableTodo != null ? 'Edit' : 'Add',
+                      );
+                    },
+                  ),
                   icon: const Icon(Icons.add),
                 ),
                 // #enddocregion FilledButton
@@ -98,4 +124,14 @@ class _TodoListScreenState extends State<TodoListScreen> {
     }
   }
 // #enddocregion Add
+
+
+  void _onEdit() {
+    // Clear the text field when the add command completes.
+    if (widget.viewModel.edit.completed) {
+      widget.viewModel.edit.clearResult();
+      widget.viewModel.toggleIsEdit(null);
+      _controller.clear();
+    }
+  }
 }

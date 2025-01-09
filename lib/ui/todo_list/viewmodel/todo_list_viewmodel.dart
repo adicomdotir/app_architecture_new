@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../business/model/todo.dart';
 import '../../../data/repositories/todo_repository.dart';
@@ -12,6 +13,7 @@ class TodoListViewModel extends ChangeNotifier {
     load = Command0<void>(_load)..execute();
     add = Command1<void, String>(_add);
     delete = Command1<void, int>(_delete);
+    edit = Command1<void, Todo>(_edit);
   }
 
   final TodoRepository _todoRepository;
@@ -25,10 +27,22 @@ class TodoListViewModel extends ChangeNotifier {
   /// Delete a Todo item by its id.
   late Command1<void, int> delete;
 
+  /// Edit a Todo item by todo item.
+  late Command1<void, Todo> edit;
+
 // #docregion TodoListViewModel
   List<Todo> _todos = [];
 
   List<Todo> get todos => _todos;
+
+  Todo? _editableTodo;
+
+  Todo? get editableTodo => _editableTodo;
+
+  void toggleIsEdit(Todo? todo) {
+    _editableTodo = todo;
+    notifyListeners();
+  }
 
   Future<Result<void>> _load() async {
     try {
@@ -46,6 +60,7 @@ class TodoListViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
 // #enddocregion TodoListViewModel
 
 // #docregion Add
@@ -65,6 +80,7 @@ class TodoListViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
 // #enddocregion Add
 
   // #docregion Delete
@@ -84,5 +100,28 @@ class TodoListViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
   // #enddocregion Delete
+
+  Future<Result<void>> _edit(Todo todo) async {
+    try {
+      final result = await _todoRepository.editTodo(todo);
+      switch (result) {
+        case Ok<Todo>():
+          final idx = _todos.indexWhere(
+            (todo) => todo.id == result.value.id,
+          );
+          if (idx != -1) {
+            _todos[idx] = result.value;
+          }
+          return const Result.ok(null);
+        case Error():
+          return Result.error(result.error);
+      }
+    } on Exception catch (e) {
+      return Result.error(e);
+    } finally {
+      notifyListeners();
+    }
+  }
 }

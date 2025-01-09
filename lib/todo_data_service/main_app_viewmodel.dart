@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:app_architecture_new/data/repositories/theme_repository.dart';
 import 'package:flutter/foundation.dart';
 
-import 'utils/result.dart';
+import './utils/result.dart';
+import 'data/repositories/theme_repository.dart';
 
 class MainAppViewModel extends ChangeNotifier {
   MainAppViewModel(

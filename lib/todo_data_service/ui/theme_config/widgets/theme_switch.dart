@@ -1,5 +1,6 @@
-import 'package:app_architecture_new/ui/theme_config/viewmodel/theme_switch_viewmodel.dart';
 import 'package:flutter/material.dart';
+
+import '../viewmodel/theme_switch_viewmodel.dart';
 
 class ThemeSwitch extends StatelessWidget {
   const ThemeSwitch({

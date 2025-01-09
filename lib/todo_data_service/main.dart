@@ -4,15 +4,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-import 'data/repositories/theme_repository.dart';
-import 'data/repositories/todo_repository.dart';
-import 'data/services/database_service.dart';
-import 'data/services/shared_preferences_service.dart';
+import './data/repositories/theme_repository.dart';
+import './data/repositories/todo_repository.dart';
+import './data/services/database_service.dart';
+import './data/services/shared_preferences_service.dart';
+import './ui/theme_config/viewmodel/theme_switch_viewmodel.dart';
+import './ui/theme_config/widgets/theme_switch.dart';
+import './ui/todo_list/viewmodel/todo_list_viewmodel.dart';
+import './ui/todo_list/widgets/todo_list_screen.dart';
 import 'main_app_viewmodel.dart';
-import 'ui/theme_config/viewmodel/theme_switch_viewmodel.dart';
-import 'ui/theme_config/widgets/theme_switch.dart';
-import 'ui/todo_list/viewmodel/todo_list_viewmodel.dart';
-import 'ui/todo_list/widgets/todo_list_screen.dart';
 
 void main() {
   late DatabaseService databaseService;

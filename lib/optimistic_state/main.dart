@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
 // #docregion Widget
 class SubscribeButton extends StatefulWidget {
   const SubscribeButton({
-    super.key,
     required this.viewModel,
+    super.key,
   });
 
   /// Subscribe button view model.

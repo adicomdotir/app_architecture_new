@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../business/model/todo.dart';
 import '../../../data/repositories/todo_repository.dart';

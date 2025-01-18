@@ -1,4 +1,6 @@
 abstract final class Routes {
+  Routes._();
+
   static const home = '/';
   static const login = '/login';
   static const search = '/$searchRelative';

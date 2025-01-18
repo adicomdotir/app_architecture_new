@@ -128,7 +128,9 @@ class _HomePageState extends State<HomePage> {
             return Center(child: Text('${widget.viewModel.userProfile?.name}'));
           }
 
-          return const Center(child: CircularProgressIndicator(),);
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
     );

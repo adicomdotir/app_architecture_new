@@ -42,7 +42,9 @@ class _BookingScreenState extends State<BookingScreen> {
       canPop: false,
       onPopInvokedWithResult: (didPop, r) {
         // Back navigation always goes to home
-        if (!didPop) context.go(Routes.home);
+        if (!didPop) {
+          context.go(Routes.home);
+        }
       },
       child: Scaffold(
         floatingActionButton: ListenableBuilder(

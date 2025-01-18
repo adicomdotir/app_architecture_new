@@ -50,7 +50,9 @@ class _ResultsScreenState extends State<ResultsScreen> {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, r) {
-        if (!didPop) context.go(Routes.search);
+        if (!didPop) {
+          context.go(Routes.search);
+        }
       },
       child: Scaffold(
         body: ListenableBuilder(

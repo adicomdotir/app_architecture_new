@@ -8,6 +8,8 @@ import '../ui/tag_chip.dart';
 import 'colors.dart';
 
 abstract final class AppTheme {
+  AppTheme._();
+
   static const _textTheme = TextTheme(
     headlineLarge: TextStyle(
       fontSize: 32,

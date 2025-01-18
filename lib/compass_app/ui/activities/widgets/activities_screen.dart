@@ -54,7 +54,9 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, r) {
-        if (!didPop) context.go(Routes.results);
+        if (!didPop) {
+          context.go(Routes.results);
+        }
       },
       child: Scaffold(
         body: ListenableBuilder(

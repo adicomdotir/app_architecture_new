@@ -1,6 +1,6 @@
 name: app_architecture_new
 description: "A new Flutter project. For practice new flutter architecture that introduced"
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
@@ -49,3 +49,18 @@ flutter:
     - assets/destinations.json
     # - assets/logo.svg
     - assets/user.jpg
+  fonts:
+    - family: IRANSans
+      fonts:
+        - asset: assets/fonts/IRANSans_Black.ttf
+          weight: 900
+        - asset: assets/fonts/IRANSans_Bold.ttf
+          weight: 700
+        - asset: assets/fonts/IRANSans_Medium.ttf
+          weight: 500
+        - asset: assets/fonts/IRANSans.ttf
+          weight: 400
+        - asset: assets/fonts/IRANSans_Light.ttf
+          weight: 300
+        - asset: assets/fonts/IRANSans_UltraLight.ttf
+          weight: 200

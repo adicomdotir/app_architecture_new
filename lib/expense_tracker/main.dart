@@ -1,6 +1,19 @@
+import 'package:app_architecture_new/expense_tracker/data/repositories/category/category_repository_local.dart';
+import 'package:app_architecture_new/expense_tracker/data/services/database_service.dart';
+import 'package:app_architecture_new/expense_tracker/ui/category/view_models/category_viewmodel.dart';
+import 'package:app_architecture_new/expense_tracker/ui/category/widgets/category_list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
+import 'package:sqflite/sqflite.dart';
 
 void main(List<String> args) {
+  Logger.root.level = Level.ALL; // defaults to Level.INFO
+  Logger.root.onRecord.listen((record) {
+    print(
+      '${record.loggerName} -> ${record.level.name}: ${record.time}: ${record.message}, ${record.error}',
+    );
+  });
+
   runApp(const MyApp());
 }
 
@@ -10,7 +23,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const MyHomeScreen(),
+      home: CategoryScreen(
+        viewModel: CategoryViewModel(
+          categoryRepository: CategoryRepositoryLocal(
+            database: DatabaseService(databaseFactory: databaseFactory),
+          ),
+        ),
+      ),
       theme: ThemeData(
         useMaterial3: true,
         fontFamily: 'IRANSans',

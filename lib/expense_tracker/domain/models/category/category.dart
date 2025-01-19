@@ -8,6 +8,7 @@ class CategoryExp with _$CategoryExp {
   const factory CategoryExp({
     required int id,
     required String title,
+    required int color,
   }) = _CategoryExp;
 
   factory CategoryExp.fromJson(Map<String, dynamic> json) =>

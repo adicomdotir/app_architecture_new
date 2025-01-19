@@ -19,11 +19,11 @@ class CategoryRepositoryLocal extends CategoryRepository {
   }
 
   @override
-  Future<Result<CategoryExp>> createCategory(String task) async {
+  Future<Result<CategoryExp>> createCategory(CategoryExp category) async {
     if (!_database.isOpen()) {
       await _database.open();
     }
-    return _database.insert(task);
+    return _database.insert(category);
   }
 
   @override

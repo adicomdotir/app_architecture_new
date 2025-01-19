@@ -22,6 +22,7 @@ CategoryExp _$CategoryExpFromJson(Map<String, dynamic> json) {
 mixin _$CategoryExp {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  int get color => throw _privateConstructorUsedError;
 
   /// Serializes this CategoryExp to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,7 +40,7 @@ abstract class $CategoryExpCopyWith<$Res> {
           CategoryExp value, $Res Function(CategoryExp) then) =
       _$CategoryExpCopyWithImpl<$Res, CategoryExp>;
   @useResult
-  $Res call({int id, String title});
+  $Res call({int id, String title, int color});
 }
 
 /// @nodoc
@@ -59,6 +60,7 @@ class _$CategoryExpCopyWithImpl<$Res, $Val extends CategoryExp>
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? color = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -69,6 +71,10 @@ class _$CategoryExpCopyWithImpl<$Res, $Val extends CategoryExp>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -81,7 +87,7 @@ abstract class _$$CategoryExpImplCopyWith<$Res>
       __$$CategoryExpImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String title});
+  $Res call({int id, String title, int color});
 }
 
 /// @nodoc
@@ -99,6 +105,7 @@ class __$$CategoryExpImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? color = null,
   }) {
     return _then(_$CategoryExpImpl(
       id: null == id
@@ -109,6 +116,10 @@ class __$$CategoryExpImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -116,7 +127,8 @@ class __$$CategoryExpImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CategoryExpImpl implements _CategoryExp {
-  const _$CategoryExpImpl({required this.id, required this.title});
+  const _$CategoryExpImpl(
+      {required this.id, required this.title, required this.color});
 
   factory _$CategoryExpImpl.fromJson(Map<String, dynamic> json) =>
       _$$CategoryExpImplFromJson(json);
@@ -125,10 +137,12 @@ class _$CategoryExpImpl implements _CategoryExp {
   final int id;
   @override
   final String title;
+  @override
+  final int color;
 
   @override
   String toString() {
-    return 'CategoryExp(id: $id, title: $title)';
+    return 'CategoryExp(id: $id, title: $title, color: $color)';
   }
 
   @override
@@ -137,12 +151,13 @@ class _$CategoryExpImpl implements _CategoryExp {
         (other.runtimeType == runtimeType &&
             other is _$CategoryExpImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.title, title) || other.title == title));
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.color, color) || other.color == color));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title);
+  int get hashCode => Object.hash(runtimeType, id, title, color);
 
   /// Create a copy of CategoryExp
   /// with the given fields replaced by the non-null parameter values.
@@ -162,7 +177,9 @@ class _$CategoryExpImpl implements _CategoryExp {
 
 abstract class _CategoryExp implements CategoryExp {
   const factory _CategoryExp(
-      {required final int id, required final String title}) = _$CategoryExpImpl;
+      {required final int id,
+      required final String title,
+      required final int color}) = _$CategoryExpImpl;
 
   factory _CategoryExp.fromJson(Map<String, dynamic> json) =
       _$CategoryExpImpl.fromJson;
@@ -171,6 +188,8 @@ abstract class _CategoryExp implements CategoryExp {
   int get id;
   @override
   String get title;
+  @override
+  int get color;
 
   /// Create a copy of CategoryExp
   /// with the given fields replaced by the non-null parameter values.

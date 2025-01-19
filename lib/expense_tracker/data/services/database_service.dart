@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -15,6 +16,7 @@ class DatabaseService {
   static const _kTableCategory = 'category';
   static const _kColumnId = '_id';
   static const _kColumnTitle = 'title';
+  static const _kColumnColor = 'color';
 
   Database? _database;
 
@@ -29,20 +31,27 @@ class DatabaseService {
       options: OpenDatabaseOptions(
         onCreate: (db, version) {
           return db.execute(
-            'CREATE TABLE $_kTableCategory($_kColumnId INTEGER PRIMARY KEY AUTOINCREMENT, $_kColumnTitle TEXT)',
+            'CREATE TABLE $_kTableCategory($_kColumnId INTEGER PRIMARY KEY AUTOINCREMENT, $_kColumnTitle TEXT, $_kColumnColor INTEGER)',
           );
         },
-        version: 1,
+        version: 2,
       ),
     );
   }
 
-  Future<Result<CategoryExp>> insert(String title) async {
+  Future<Result<CategoryExp>> insert(CategoryExp category) async {
     try {
       final id = await _database!.insert(_kTableCategory, {
-        _kColumnTitle: title,
+        _kColumnTitle: category.title,
+        _kColumnColor: category.color,
       });
-      return Result.ok(CategoryExp(id: id, title: title));
+      return Result.ok(
+        CategoryExp(
+          id: id,
+          title: category.title,
+          color: Colors.red.value,
+        ),
+      );
     } on Exception catch (e) {
       return Result.error(e);
     }
@@ -53,14 +62,15 @@ class DatabaseService {
     try {
       final entries = await _database!.query(
         _kTableCategory,
-        columns: [_kColumnId, _kColumnTitle],
+        columns: [_kColumnId, _kColumnTitle, _kColumnColor],
       );
-      print('entries');
+      print('$entries');
       final list = entries
           .map(
             (element) => CategoryExp(
               id: element[_kColumnId] as int,
               title: element[_kColumnTitle] as String,
+              color: element[_kColumnColor] as int,
             ),
           )
           .toList();

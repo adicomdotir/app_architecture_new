@@ -1,10 +1,13 @@
 import 'package:app_architecture_new/expense_tracker/data/repositories/category/category_repository_local.dart';
 import 'package:app_architecture_new/expense_tracker/data/services/database_service.dart';
-import 'package:app_architecture_new/expense_tracker/ui/category/view_models/category_viewmodel.dart';
-import 'package:app_architecture_new/expense_tracker/ui/category/widgets/category_list_screen.dart';
+import 'package:app_architecture_new/expense_tracker/ui/add_category/view_models/add_category_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:sqflite/sqflite.dart';
+
+import 'ui/add_category/widgets/add_category_screen.dart';
+import 'ui/category/view_models/category_viewmodel.dart';
+import 'ui/category/widgets/category_list_screen.dart';
 
 void main(List<String> args) {
   Logger.root.level = Level.ALL; // defaults to Level.INFO
@@ -25,6 +28,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: CategoryScreen(
         viewModel: CategoryViewModel(
+          categoryRepository: CategoryRepositoryLocal(
+            database: DatabaseService(databaseFactory: databaseFactory),
+          ),
+        ),
+      ),
+      theme: ThemeData(
+        useMaterial3: true,
+        fontFamily: 'IRANSans',
+      ),
+    );
+    return MaterialApp(
+      home: AddCategoryScreen(
+        viewModel: AddCategoryViewModel(
           categoryRepository: CategoryRepositoryLocal(
             database: DatabaseService(databaseFactory: databaseFactory),
           ),

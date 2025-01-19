@@ -67,6 +67,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           child: ListenableBuilder(
             listenable: widget.viewModel,
             builder: (context, _) {
+              print(widget.viewModel.categories.length);
               return CustomScrollView(
                 slivers: [
                   SliverToBoxAdapter(
@@ -137,7 +138,7 @@ class _Category extends StatelessWidget {
       direction: DismissDirection.endToStart,
       confirmDismiss: confirmDismiss,
       background: Container(
-        color: Colors.red,
+        color: Color(category.color),
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -161,6 +162,11 @@ class _Category extends StatelessWidget {
               Text(
                 category.title,
                 style: Theme.of(context).textTheme.titleLarge,
+              ),
+              Container(
+                color: Color(category.color),
+                width: 24,
+                height: 24,
               ),
             ],
           ),
